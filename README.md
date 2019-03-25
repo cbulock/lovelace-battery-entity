@@ -3,7 +3,7 @@
 
 A custom [Lovelace](https://www.home-assistant.io/lovelace/) component for displaying battery levels for battery entities for [Home Assistant](https://github.com/home-assistant/home-assistant).
 
-![Preview Image](https://raw.githubusercontent.com/cbulock/lovelace-battery-entity/master/images/screenshot.png)
+<img src="https://raw.githubusercontent.com/cbulock/lovelace-battery-entity/master/images/screenshot.png" width="300">
 
 ## Install
 
