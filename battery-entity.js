@@ -42,7 +42,7 @@ class BatteryEntity extends Polymer.Element {
 		</div>
 		<div class="flex">
 			<div class="info">
-				[[_config.name]]
+				[[displayName()]]
 			</div>
 			<div class="state">
 				[[roundedState(stateObj.state)]] [[stateObj.attributes.unit_of_measurement]]
@@ -66,6 +66,10 @@ class BatteryEntity extends Polymer.Element {
 
 	roundedState(state) {
 		return Math.round(state);
+	}
+
+	displayName() {
+		return this._config.name || this.stateObj.attributes.friendly_name;
 	}
 
 	setIcon() {
