@@ -43,7 +43,7 @@ resources:
   ```yaml
   custom_updater:
     card_urls:
-      - https://raw.githubusercontent.com/cbulock/lovelace-battery-entity/master/battery-entity.js
+      - https://raw.githubusercontent.com/cbulock/lovelace-battery-entity/master/tracker.json
   ```
 
 ## Updating
