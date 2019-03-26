@@ -1,0 +1,9 @@
+{
+"lovelace-battery-entity": {
+"updated_at": "2019-03-26",
+"version": "0.0.1",
+"remote_location": "https://raw.githubusercontent.com/cbulock/lovelace-battery-entity/master/tracker.json",
+"visit_repo": "https://github.com/cbulock/lovelace-battery-entity",
+"changelog": "https://github.com/cbulock/lovelace-battery-entity/releases/latest"
+}
+}
