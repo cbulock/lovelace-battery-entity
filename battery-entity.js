@@ -69,8 +69,10 @@ class BatteryEntity extends Polymer.Element {
 	}
 
 	getBatteryLevel() {
-		const stateValue = this.stateObj.attributes.battery ? this.stateObj.attributes.battery : this.stateObj.state;
-		return parseInt(Math.round(stateValue), 10);
+		let batteryValue = this.stateObj.state;
+		if (this.stateObj.attributes.battery) batteryValue = this.stateObj.attributes.battery;
+		if (this.stateObj.attributes.battery_level) batteryValue = this.stateObj.attributes.battery_level;
+		return parseInt(Math.round(batteryValue), 10);
 	}
 
 	setIcon() {
@@ -108,6 +110,10 @@ class BatteryEntity extends Polymer.Element {
 		this.stateObj = this._config.entity in hass.states ? hass.states[this._config.entity] : null;
 		this.setIcon();
 		this.setColor();
+	}
+
+	getCardSize() {
+		return 1;
 	}
 
 	stopPropagation(ev) {
