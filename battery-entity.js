@@ -45,7 +45,7 @@ class BatteryEntity extends Polymer.Element {
 				[[displayName()]]
 			</div>
 			<div class="state">
-				[[roundedState(stateObj.state)]] [[stateObj.attributes.unit_of_measurement]]
+				[[getBatteryLevel()]] %
 			</div>
 		</div>
 		`
@@ -64,17 +64,17 @@ class BatteryEntity extends Polymer.Element {
 		this._config = config;
 	}
 
-	roundedState(state) {
-		return Math.round(state);
-	}
-
 	displayName() {
 		return this._config.name || this.stateObj.attributes.friendly_name;
 	}
 
+	getBatteryLevel() {
+		const stateValue = this.stateObj.attributes.battery ? this.stateObj.attributes.battery : this.stateObj.state;
+		return parseInt(Math.round(stateValue), 10);
+	}
+
 	setIcon() {
-		const state = parseInt(this.stateObj.state, 10);
-		const roundedLevel = Math.round(state / 10) * 10;
+		const roundedLevel = Math.round(this.getBatteryLevel() / 10) * 10;
 		switch (roundedLevel) {
 			case 100:
 				this._config.icon = 'mdi:battery'; // mdi:battery should have an alias of mdi:battery-100, doesn't work in current HASS
@@ -88,14 +88,14 @@ class BatteryEntity extends Polymer.Element {
 	}
 
 	setColor() {
-		const state = parseInt(this.stateObj.state, 10);
+		const battery = this.getBatteryLevel();
 		const warningLevel = this._config.warning || 35;
 		const criticalLevel = this._config.critical || 15;
 
-		if (state > warningLevel) {
+		if (battery > warningLevel) {
 			this._config.batteryLevel = 'good';
 		}
-		else if (state > criticalLevel) {
+		else if (battery > criticalLevel) {
 			this._config.batteryLevel = 'warning';
 		}
 		else {
