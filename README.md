@@ -34,18 +34,6 @@ resources:
     type: module
 ```
 
-### *(Optional)* Add to custom updater
-
-1. Make sure you've the [custom_updater](https://github.com/custom-components/custom_updater) component installed and working.
-
-2. Add a new reference under `card_urls` in your `custom_updater` configuration in `configuration.yaml`.
-
-  ```yaml
-  custom_updater:
-    card_urls:
-      - https://raw.githubusercontent.com/cbulock/lovelace-battery-entity/master/tracker.json
-  ```
-
 ## Updating
 1. Find your `battery-entity.js` file in `config/www` or wherever you ended up storing it.
 
