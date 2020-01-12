@@ -61,6 +61,10 @@ class BatteryEntity extends Polymer.Element {
 	}
 
 	setConfig(config) {
+		if (!config.entity) {
+			throw new Error('You need to define an entity in the configuration');
+		}
+		
 		this._config = config;
 	}
 
@@ -69,12 +73,14 @@ class BatteryEntity extends Polymer.Element {
 	}
 
 	getBatteryLevel() {
-		let batteryValue = this.stateObj.state;
-		if (this.stateObj.attributes.battery) batteryValue = this.stateObj.attributes.battery;
-		if (this.stateObj.attributes.battery_level) batteryValue = this.stateObj.attributes.battery_level;
-		return Number.isFinite(parseInt(batteryValue))
-			? parseInt(Math.round(batteryValue), 10)
-			: 0;
+		// battery value candidates in priority order
+		let candidates = [
+			this.stateObj.attributes.battery_level, 
+			this.stateObj.attributes.battery, 
+			this.stateObj.state, 
+			0
+		];
+		return Math.round(candidates.find(n => n!== null && !isNaN(n)));
 	}
 
 	setIcon() {
@@ -109,9 +115,11 @@ class BatteryEntity extends Polymer.Element {
 
 	set hass(hass) {
 		this._hass = hass;
-		this.stateObj = this._config.entity in hass.states ? hass.states[this._config.entity] : null;
-		this.setIcon();
-		this.setColor();
+		this.stateObj = hass.states[this._config.entity];
+		if (this.stateObj) {
+			this.setIcon();
+			this.setColor();
+		}
 	}
 
 	getCardSize() {
