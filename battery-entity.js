@@ -61,6 +61,10 @@ class BatteryEntity extends Polymer.Element {
 	}
 
 	setConfig(config) {
+		if (!config.entity) {
+			throw new Error('You need to define an entity in the configuration');
+		}
+		
 		this._config = config;
 	}
 
@@ -111,9 +115,11 @@ class BatteryEntity extends Polymer.Element {
 
 	set hass(hass) {
 		this._hass = hass;
-		this.stateObj = this._config.entity in hass.states ? hass.states[this._config.entity] : null;
-		this.setIcon();
-		this.setColor();
+		this.stateObj = hass.states[this._config.entity];
+		if (this.stateObj) {
+			this.setIcon();
+			this.setColor();
+		}
 	}
 
 	getCardSize() {
