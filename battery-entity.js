@@ -45,7 +45,7 @@ class BatteryEntity extends Polymer.Element {
 				[[displayName()]]
 			</div>
 			<div class="state">
-				[[roundedState(stateObj.state)]] [[stateObj.attributes.unit_of_measurement]]
+				[[displayState(stateObj.state)]]
 			</div>
 		</div>
 		`
@@ -60,12 +60,25 @@ class BatteryEntity extends Polymer.Element {
 		};
 	}
 
+    getState() {
+        const attribs = (this._config.attribute || 'battery,battery_level,state').split(',');
+        var i;
+
+        for (i = 0; i < attribs.length; i++) {
+            if (this.stateObj.attributes[attribs[i]] != undefined) {
+                return parseInt(this.stateObj.attributes[attribs[i]], 10);
+
+            }
+        }
+        return parseInt(this.stateObj.state, 10);
+    }
+
 	setConfig(config) {
 		this._config = config;
 	}
 
-	roundedState(state) {
-		return Math.round(state);
+	displayState(state) {
+	    return Math.round(this.getState()) + ' %';
 	}
 
 	displayName() {
@@ -73,7 +86,7 @@ class BatteryEntity extends Polymer.Element {
 	}
 
 	setIcon() {
-		const state = parseInt(this.stateObj.state, 10);
+		const state = this.getState();
 		const roundedLevel = Math.round(state / 10) * 10;
 		switch (roundedLevel) {
 			case 100:
@@ -88,7 +101,7 @@ class BatteryEntity extends Polymer.Element {
 	}
 
 	setColor() {
-		const state = parseInt(this.stateObj.state, 10);
+	    const state = this.getState();
 		const warningLevel = this._config.warning || 35;
 		const criticalLevel = this._config.critical || 15;
 

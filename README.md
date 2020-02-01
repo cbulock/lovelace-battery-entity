@@ -1,3 +1,4 @@
+
 # Lovelace Battery Entity
 
 
@@ -70,6 +71,7 @@ resources:
 |------|------|---------|-------|---------|-------------|
 | type | string | **required** | v0.1 | | `custom:battery-entity`
 | entity | string | **required** | v0.1 | | An entity_id that has a percentage as a state.
+| attribute | string | optional | v0.2 | battery,battery_level,state | defines a list of attributes to obtain the battery level from (attributes will be checked in order separated by commas)
 | name | string | optional | v0.1 | *friendly_name* | Override the entities friendly name.
 | warning | integer | optional | v0.1 | 35 | Sets the level at which the battery icon will be shown as yellow.
 | critical | integer | optional | v0.1 | 15 | Sets the level at which the battery icon will be shown as red.
@@ -81,6 +83,32 @@ resources:
 ```yaml
 - type: custom:battery-entity
   entity: sensor.front_door_lock_battery
+  attributes: battery,battery_level,batterypercent,state
+```
+
+#### Use with [Auto Entities](https://github.com/thomasloven/lovelace-auto-entities)
+If you use Auto Entities card and want to add all of the battery & battery_level attributes automatically you can do so as follows:
+
+```yaml
+card:
+  show_header_toggle: false
+  type: entities
+entities:
+  - label: Batteries
+    type: section
+filter:
+  include:
+    - attributes:
+        battery_level: <= 100
+      options:
+        type: 'custom:battery-entity'
+    - attributes:
+        battery: <= 100
+      options:
+        type: 'custom:battery-entity'
+sort:
+  method: name
+type: 'custom:auto-entities'
 ```
 
 ## License
