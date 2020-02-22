@@ -45,7 +45,7 @@ class BatteryEntity extends Polymer.Element {
 				[[displayName()]]
 			</div>
 			<div class="state">
-				[[getBatteryLevel()]] %
+				[[getBatteryLevel()]]&nbsp;%
 			</div>
 		</div>
 		`
