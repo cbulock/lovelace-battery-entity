@@ -1,7 +1,7 @@
 # Lovelace Battery Entity
 
 
-A custom [Lovelace](https://www.home-assistant.io/dashboards/) component for displaying battery levels for battery entities for [Home Assistant](https://www.home-assistant.io/).
+A custom [Lovelace](https://www.home-assistant.io/dashboards/) card for displaying battery levels for battery entities for [Home Assistant](https://www.home-assistant.io/).
 
 <img src="https://raw.githubusercontent.com/cbulock/lovelace-battery-entity/master/images/screenshot.png" width="300">
 
