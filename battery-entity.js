@@ -73,7 +73,7 @@ class BatteryEntity extends Polymer.Element {
 		if (this.stateObj.attributes.battery) batteryValue = this.stateObj.attributes.battery;
 		if (this.stateObj.attributes.battery_level) batteryValue = this.stateObj.attributes.battery_level;
 		return Number.isFinite(parseInt(batteryValue))
-			? parseInt(Math.round(batteryValue), 10)
+			? parseInt(Math.round(parseInt(batteryValue)), 10)
 			: 0;
 	}
 
